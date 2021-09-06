@@ -1,8 +1,8 @@
-# Yggdrasil for Ubiquiti EdgeOS / VyOS
+# RiV-mesh for Ubiquiti EdgeOS / VyOS
 
 ### Introduction
 
-This package provides yggdrasil support on supported Ubiquiti EdgeOS 2.x, VyOS 1.3 and potentially other Vyatta-based routers.  It is integrated with the command line interface (CLI) allowing yggdrasil to be configured through the standard configuration system.
+This package provides RiV-mesh support on supported Ubiquiti EdgeOS 2.x, VyOS 1.3 and potentially other Vyatta-based routers.  It is integrated with the command line interface (CLI) allowing RiV-mesh to be configured through the standard configuration system.
 
 ### Compatibility
 
@@ -17,8 +17,8 @@ This package provides yggdrasil support on supported Ubiquiti EdgeOS 2.x, VyOS 1
 
 Either download or build a release and copy it to the router, then install/upgrade it:
 ```
-sudo dpkg -i yggdrasil-edgeos2x-x.x.x-xxxxxx.deb # EdgeOS
-sudo dpkg -i yggdrasil-vyos13-x.x.x-xxxxxx.deb   # VyOS
+sudo dpkg -i mesh-edgeos2x-x.x.x-xxxxxx.deb # EdgeOS
+sudo dpkg -i mesh-vyos13-x.x.x-xxxxxx.deb   # VyOS
 ```
 
 ### Initial
@@ -26,27 +26,27 @@ sudo dpkg -i yggdrasil-vyos13-x.x.x-xxxxxx.deb   # VyOS
 Start by creating the default configuration on the interface (replacing `tunX` with your chosen TUN adapter):
 ```
 configure
-set interfaces yggdrasil tunX
-set interfaces yggdrasil tunX description yggdrasil
+set interfaces mesh tunX
+set interfaces mesh tunX description mesh
 commit
 ```
 This automatically generates a new private key and then populates the IPv6 address, public key and private key into the config.
 
 ### Configuration
 
-Configuration changes should be made to `/config/yggdrasil.tunX.conf` by hand. To make effective, restart yggdrasil (replacing `tunX` with your chosen TUN adapter):
+Configuration changes should be made to `/config/mesh.tunX.conf` by hand. To make effective, restart mesh (replacing `tunX` with your chosen TUN adapter):
 ```
-restart yggdrasil tunX
+restart mesh tunX
 ```
 
 ### Masquerade
 
-If you want to allow other IPv6 hosts on your network to communicate through yggdrasil, you can configure an IPv6 masquerade rule. All traffic sent from other hosts on the network through the yggdrasil interface will be NAT'd.
+If you want to allow other IPv6 hosts on your network to communicate through mesh, you can configure an IPv6 masquerade rule. All traffic sent from other hosts on the network through the mesh interface will be NAT'd.
 
 For example:
 ```
 configure
-set interfaces yggdrasil tun0 masquerade from xxxx:xxxx:xxxx::/48
+set interfaces mesh tun0 masquerade from xxxx:xxxx:xxxx::/48
 commit
 ```
 If you have multiple IPv6 subnets, then they can be configured individually by setting multiple `masquerade from` source ranges. Both private/ULA and public IPv6 subnets are acceptable.
