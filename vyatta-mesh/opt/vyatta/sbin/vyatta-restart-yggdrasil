@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# vyatta-yggdrasil - A yggdrasil package for Ubiquiti EdgeOS, VyOS and other
+# vyatta-mesh - A mesh package for Ubiquiti EdgeOS, VyOS and other
 # Vyatta-based systems.
 # Copyright (C) 2018 Neil Alexander T.
 #
@@ -20,15 +20,15 @@
 
 if [ ! -z $1 ];
 then
-    echo "Restarting yggdrasil interface $1..."
-    sudo systemctl restart yggdrasil@$1
+    echo "Restarting mesh interface $1..."
+    sudo systemctl restart mesh@$1
 else
-    if [ `ls /config/yggdrasil.*.conf 2>/dev/null | wc -l` -gt 0 ];
+    if [ `ls /config/mesh.*.conf 2>/dev/null | wc -l` -gt 0 ];
     then
-        ls /config/yggdrasil.*.conf | awk -v FS="(yggdrasil.|.conf)" '{print $3}' | while read file;
+        ls /config/mesh.*.conf | awk -v FS="(mesh.|.conf)" '{print $3}' | while read file;
         do
-            echo "Restarting yggdrasil interface $file..."
-            sudo systemctl restart yggdrasil@$file
+            echo "Restarting mesh interface $file..."
+            sudo systemctl restart mesh@$file
         done
     fi
 fi

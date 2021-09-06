@@ -1,15 +1,15 @@
 tag:
 type: txt
-help: Interface name for yggdrasil process
+help: Interface name for mesh process
 val_help: txt; Interface name (i.e. tun0)
 
 priority: 998
 
-create: /opt/vyatta/sbin/vyatta-yggdrasil-createconf $VAR(@);
-        sudo systemctl enable yggdrasil@$VAR(@);
-        sudo systemctl start yggdrasil@$VAR(@)
-delete: sudo systemctl stop yggdrasil@$VAR(@);
-        sudo systemctl disable yggdrasil@$VAR(@)
+create: /opt/vyatta/sbin/vyatta-mesh-createconf $VAR(@);
+        sudo systemctl enable mesh@$VAR(@);
+        sudo systemctl start mesh@$VAR(@)
+delete: sudo systemctl stop mesh@$VAR(@);
+        sudo systemctl disable mesh@$VAR(@)
 
 syntax:expression: pattern $VAR(@) "^tun[0-9]+$" \
          ; "Interface name must be (tun0-tun99)"

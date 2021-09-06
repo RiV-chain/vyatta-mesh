@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 #
-# vyatta-yggdrasil - A yggdrasil package for Ubiquiti EdgeOS, VyOS and other
+# vyatta-mesh - A mesh package for Ubiquiti EdgeOS, VyOS and other
 # Vyatta-based systems.
 # Copyright (C) 2015 Neil Alexander T.
 #
@@ -22,7 +22,7 @@ PKGNAME?=vyatta-$(shell cd $(BUILDDIR_YGG) && sh contrib/semver/name.sh --bare)
 PKGARCH?=mipsel
 PKGVERSION?=$(shell cd $(BUILDDIR_YGG) && sh contrib/semver/version.sh --bare)
 
-BUILDDIR_YGG?=/tmp/yggdrasil
+BUILDDIR_YGG?=/tmp/mesh
 
 # cd $(BUILDDIR_YGG) && sh contrib/semver/version.sh | cut -c 2-
 # cd $(BUILDDIR_YGG) && sh contrib/semver/name.sh
@@ -32,8 +32,8 @@ all: cross
 cross: clean build-cross package cleanpackage
 native: clean build-native package cleanpackage
 
-build-cross: yggdrasilclone yggdrasilbuild-cross yggdrasilstage
-build-native: yggdrasilclone yggdrasilbuild-native yggdrasilstage
+build-cross: meshclone meshbuild-cross meshstage
+build-native: meshclone meshbuild-native meshstage
 
 package:
 	@echo "Packaging $(PKGNAME) version $(PKGVERSION) for $(PKGARCH)..."
@@ -54,25 +54,25 @@ cleanpackage:
 	rm ../control.tar.gz
 	rm ../data.tar.gz
 
-yggdrasilclone:
-	@[ "$(BUILDDIR_YGG)" = "/tmp/yggdrasil" ] && git clone -b $(BRANCH) https://github.com/yggdrasil-network/yggdrasil-go $(BUILDDIR_YGG) || true
+meshclone:
+	@[ "$(BUILDDIR_YGG)" = "/tmp/mesh" ] && git clone -b $(BRANCH) https://github.com/mesh-network/mesh-go $(BUILDDIR_YGG) || true
 
-yggdrasilbuild-cross:
+meshbuild-cross:
 	@[ "$(PKGARCH)" = "mipsel" ] && (cd $(BUILDDIR_YGG) && GOOS='linux' GOARCH='mipsle' GOMIPS='softfloat' ./build) || true
 	@[ "$(PKGARCH)" = "mips" ] && (cd $(BUILDDIR_YGG) && GOOS='linux' GOARCH='mips64' ./build) || true
 	@[ "$(PKGARCH)" = "amd64" ] && (cd $(BUILDDIR_YGG) && GOOS='linux' GOARCH='amd64' ./build) || true
 	@[ "$(PKGARCH)" = "i386" ] && (cd $(BUILDDIR_YGG) && GOOS='linux' GOARCH='386' ./build) || true
 
-yggdrasilbuild-native:
+meshbuild-native:
 	cd $(BUILDDIR_YGG) && GOOS='linux' ./build
 
-yggdrasilstage:
+meshstage:
 	mkdir -p usr/local/bin
-	cp $(BUILDDIR_YGG)/yggdrasil usr/local/bin/yggdrasil
-	cp $(BUILDDIR_YGG)/yggdrasilctl usr/local/bin/yggdrasilctl
+	cp $(BUILDDIR_YGG)/mesh usr/local/bin/mesh
+	cp $(BUILDDIR_YGG)/meshctl usr/local/bin/meshctl
 
 clean:
-	rm -rf sbin/yggdrasil
-	@[ "$(BUILDDIR_YGG)" = "/tmp/yggdrasil" ] && rm -rf $(BUILDDIR_YGG) || true
+	rm -rf sbin/mesh
+	@[ "$(BUILDDIR_YGG)" = "/tmp/mesh" ] && rm -rf $(BUILDDIR_YGG) || true
 
 distclean:	clean

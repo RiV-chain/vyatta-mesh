@@ -1,5 +1,5 @@
 [Unit]
-Description=yggdrasil
+Description=mesh
 Wants=network.target
 After=network.target
 
@@ -7,9 +7,9 @@ After=network.target
 Group=vyattacfg
 ProtectHome=true
 ProtectSystem=true
-SyslogIdentifier=yggdrasil
+SyslogIdentifier=mesh
 CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW
-ExecStart=/usr/local/bin/yggdrasil -useconffile /config/yggdrasil.%i.conf
+ExecStart=/usr/local/bin/mesh -useconffile /config/mesh.%i.conf
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=always
 TimeoutStopSec=5

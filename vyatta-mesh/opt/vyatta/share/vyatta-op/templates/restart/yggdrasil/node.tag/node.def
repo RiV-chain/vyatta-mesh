@@ -1,2 +1,2 @@
-run: sudo -u root -g users /opt/vyatta/sbin/vyatta-restart-yggdrasil $3
-help: Restart the specified yggdrasil interface
+run: sudo -u root -g users /opt/vyatta/sbin/vyatta-restart-mesh $3
+help: Restart the specified mesh interface

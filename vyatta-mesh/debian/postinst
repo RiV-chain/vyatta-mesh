@@ -2,9 +2,9 @@
 
 sudo systemctl daemon-reload
 
-for f in /config/yggdrasil.*.conf
+for f in /config/mesh.*.conf
 do
-  if [ "$f" == "/config/yggdrasil.*.conf" ];
+  if [ "$f" == "/config/mesh.*.conf" ];
   then
     continue
   fi
@@ -13,7 +13,7 @@ do
   echo "Backing up configuration file to $f.`date +%Y%m%d`"
   cp $f $f.`date +%Y%m%d`
   echo "Normalising $f"
-  /usr/local/bin/yggdrasil -useconffile $f.`date +%Y%m%d` -normaliseconf > $f
+  /usr/local/bin/mesh -useconffile $f.`date +%Y%m%d` -normaliseconf > $f
 done
 
-sg users -c "/opt/vyatta/sbin/vyatta-restart-yggdrasil"
+sg users -c "/opt/vyatta/sbin/vyatta-restart-mesh"
