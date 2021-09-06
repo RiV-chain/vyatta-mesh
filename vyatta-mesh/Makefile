@@ -18,14 +18,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-PKGNAME?=vyatta-$(shell cd $(BUILDDIR_YGG) && sh contrib/semver/name.sh --bare)
+PKGNAME?=vyatta-$(shell cd $(BUILDDIR_RIV) && sh contrib/semver/name.sh --bare)
 PKGARCH?=mipsel
-PKGVERSION?=$(shell cd $(BUILDDIR_YGG) && sh contrib/semver/version.sh --bare)
+PKGVERSION?=$(shell cd $(BUILDDIR_RIV) && sh contrib/semver/version.sh --bare)
 
-BUILDDIR_YGG?=/tmp/mesh
+BUILDDIR_RIV?=/tmp/mesh
 
-# cd $(BUILDDIR_YGG) && sh contrib/semver/version.sh | cut -c 2-
-# cd $(BUILDDIR_YGG) && sh contrib/semver/name.sh
+# cd $(BUILDDIR_RIV) && sh contrib/semver/version.sh | cut -c 2-
+# cd $(BUILDDIR_RIV) && sh contrib/semver/name.sh
 
 all: cross
 
@@ -55,24 +55,24 @@ cleanpackage:
 	rm ../data.tar.gz
 
 meshclone:
-	@[ "$(BUILDDIR_YGG)" = "/tmp/mesh" ] && git clone -b $(BRANCH) https://github.com/mesh-network/mesh-go $(BUILDDIR_YGG) || true
+	@[ "$(BUILDDIR_RIV)" = "/tmp/mesh" ] && git clone -b $(BRANCH) https://github.com/mesh-network/mesh-go $(BUILDDIR_RIV) || true
 
 meshbuild-cross:
-	@[ "$(PKGARCH)" = "mipsel" ] && (cd $(BUILDDIR_YGG) && GOOS='linux' GOARCH='mipsle' GOMIPS='softfloat' ./build) || true
-	@[ "$(PKGARCH)" = "mips" ] && (cd $(BUILDDIR_YGG) && GOOS='linux' GOARCH='mips64' ./build) || true
-	@[ "$(PKGARCH)" = "amd64" ] && (cd $(BUILDDIR_YGG) && GOOS='linux' GOARCH='amd64' ./build) || true
-	@[ "$(PKGARCH)" = "i386" ] && (cd $(BUILDDIR_YGG) && GOOS='linux' GOARCH='386' ./build) || true
+	@[ "$(PKGARCH)" = "mipsel" ] && (cd $(BUILDDIR_RIV) && GOOS='linux' GOARCH='mipsle' GOMIPS='softfloat' ./build) || true
+	@[ "$(PKGARCH)" = "mips" ] && (cd $(BUILDDIR_RIV) && GOOS='linux' GOARCH='mips64' ./build) || true
+	@[ "$(PKGARCH)" = "amd64" ] && (cd $(BUILDDIR_RIV) && GOOS='linux' GOARCH='amd64' ./build) || true
+	@[ "$(PKGARCH)" = "i386" ] && (cd $(BUILDDIR_RIV) && GOOS='linux' GOARCH='386' ./build) || true
 
 meshbuild-native:
-	cd $(BUILDDIR_YGG) && GOOS='linux' ./build
+	cd $(BUILDDIR_RIV) && GOOS='linux' ./build
 
 meshstage:
 	mkdir -p usr/local/bin
-	cp $(BUILDDIR_YGG)/mesh usr/local/bin/mesh
-	cp $(BUILDDIR_YGG)/meshctl usr/local/bin/meshctl
+	cp $(BUILDDIR_RIV)/mesh usr/local/bin/mesh
+	cp $(BUILDDIR_RIV)/meshctl usr/local/bin/meshctl
 
 clean:
 	rm -rf sbin/mesh
-	@[ "$(BUILDDIR_YGG)" = "/tmp/mesh" ] && rm -rf $(BUILDDIR_YGG) || true
+	@[ "$(BUILDDIR_RIV)" = "/tmp/mesh" ] && rm -rf $(BUILDDIR_RIV) || true
 
 distclean:	clean
