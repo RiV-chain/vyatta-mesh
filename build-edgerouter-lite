@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 # vyatta-mesh - A mesh package for Ubiquiti EdgeOS, VyOS and other
 # Vyatta-based systems.
