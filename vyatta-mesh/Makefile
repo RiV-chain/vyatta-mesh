@@ -55,7 +55,7 @@ cleanpackage:
 	rm ../data.tar.gz
 
 meshclone:
-	@[ "$(BUILDDIR_RIV)" = "/tmp/mesh" ] && git clone -b $(BRANCH) https://github.com/mesh-network/mesh-go $(BUILDDIR_RIV) || true
+	@[ "$(BUILDDIR_RIV)" = "/tmp/mesh" ] && git clone -b $(BRANCH) https://github.com/RiV-chain/RiV-mesh.git $(BUILDDIR_RIV) || true
 
 meshbuild-cross:
 	@[ "$(PKGARCH)" = "mipsel" ] && (cd $(BUILDDIR_RIV) && GOOS='linux' GOARCH='mipsle' GOMIPS='softfloat' ./build) || true
