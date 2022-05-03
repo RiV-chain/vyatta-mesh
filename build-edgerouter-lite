@@ -18,7 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-BRANCH="$1"; [ -z "$BRANCH" ] && BRANCH=master
+BRANCH="$1"; #[ -z "$BRANCH" ] && BRANCH=master
 echo "Building vyatta-mesh for $BRANCH"
 
 cd vyatta-mesh && \
