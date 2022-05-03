@@ -18,8 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-echo "Building vyatta-mesh..."
 BRANCH=$1; [ -z "$1" ] && BRANCH=master
+echo "Building vyatta-mesh for $BRANCH"
+
 cd vyatta-mesh && \
     BRANCH=$BRANCH PKGNAME=mesh-edgeos2x PKGARCH=mips make cross -e && \
     cd ..
