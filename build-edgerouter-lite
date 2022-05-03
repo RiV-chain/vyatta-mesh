@@ -19,7 +19,7 @@
 #
 
 echo "Building vyatta-mesh..."
-BRANCH=$1; [ -z "${BRANCH}" ] && BRANCH=master
+BRANCH=$1; [ -z "$1" ] && BRANCH=master
 cd vyatta-mesh && \
-    BRANCH=${BRANCH} PKGNAME=mesh-edgeos2x PKGARCH=mips make cross -e && \
+    BRANCH=$BRANCH PKGNAME=mesh-edgeos2x PKGARCH=mips make cross -e && \
     cd ..
